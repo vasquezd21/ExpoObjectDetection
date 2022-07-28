@@ -276,9 +276,7 @@ export default function App() {
         source={{ uri: outputImage.localUri}}
         style={styles.thumbnail}
       ></Image>
-      <Text>
-        DOG 0.81
-      </Text>
+
       
       </View>}
 
