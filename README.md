@@ -1,3 +1,3 @@
-# Object Detection APP
+# Object Detection App
 
 Object Detection mobile app
