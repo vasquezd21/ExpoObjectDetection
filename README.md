@@ -3,9 +3,9 @@
 Steps of building this project from scratch
 
 0. Prepare environment and install required components
-  i. https://github.com/fs-eire/ort-rn-hello-world Follow steps here to set up ONNX Runtime project with Expo
-  ii. The object detection tf lite model used in this project can be found and downloaded here https://github.com/microsoft/onnxruntime-inference-examples/tree/main/mobile/examples/object_detection/ios
-  iii. The tf lite model must first be converted to an ONNX model then an ORT model.
+  1. https://github.com/fs-eire/ort-rn-hello-world Follow steps here to set up ONNX Runtime project with Expo
+  2. The object detection tf lite model used in this project can be found and downloaded here https://github.com/microsoft/onnxruntime-inference-examples/tree/main/mobile/examples/object_detection/ios
+  3. The tf lite model must first be converted to an ONNX model then an ORT model.
     - Steps to convert the tf lite model to ONNX can be found here https://onnxruntime.ai/docs/tutorials/tf-get-started.html#:~:text=Link%20Getting%20Started%20Converting%20TensorFlow%20to%20ONNX%201,and%20Troubleshooting%20guide.%20...%205%20Link%20Next%20Steps
     - Once the model is in ONNX format, it must be converted to ORT format following these steps https://onnxruntime.ai/docs/reference/ort-format-models.html
     NOTE:
