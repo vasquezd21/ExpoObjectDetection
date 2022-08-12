@@ -2,37 +2,70 @@
 
 Steps of building this project from scratch
 
-0. Prepare environment and install required components
-  1. install Node.js
-  2. install expo
-  ```
-  npm install -g expo-cli
-  ```
-  3. install yarn
-  ```
-  npm install -g yarn
-  ```
-  4. install onnxruntime-react-native
-  ```
-  expo install onnxruntime-react-native@dev
-  ```
-  2. The object detection tf lite model used in this project can be found and downloaded here https://github.com/microsoft/onnxruntime-inference-examples/tree/main/mobile/examples/object_detection/ios
-  3. The tf lite model must first be converted to an ONNX model then an ORT model that is opset version 13.
+0. Prepare environment
 
-    NOTE:
+     i. Install Node.js
 
+     ii. Install [expo](https://docs.expo.dev/)
+     ```
+     npm install -g expo-cli
+     ```
+     iii. Install yarn
+     ```
+     npm install -g yarn
+     ```
+     iv. Install onnxruntime-react-native
+     ```
+     expo install onnxruntime-react-native@dev
+     ```
+  1. Project Setup
 
-    - ORT is not compatable with the most recent version of python as of 8/11/2022, so the python environment must first be downgraded to version 3.9 to convert ONNX to ORT
+      i. Clone this repo 
+      
+      ii. Navifate to the ```js\ExpoObjectDetection``` folder. This will serve as your ```<SOURCE_ROOT>```
+  2. Add the object detection model to the project.
 
+       i. Download the ORT model found [here](https://github.com/vasquezd21/ExpoObjectDetection/blob/master/assets/ssd_mobilenet_v1.opset13.exported.ort) and add this model into the ```assets``` folder in the ```<SOURCE_ROOT>```
 
-    1. Export the tf lite model to ONNX by running the following command.
-      ```
-      python -m tf2onnx.convert --tflite .\ssd_mobilenet_v1_1_metadata_1.tflite --opset 13 --output ./ssd_mobilenet_v1.opset13.exported.onnx
-      ```
-    2. Convert ONNX model to ORT by running the following command.
-      ```
-      python -m onnxruntime.tools.convert_onnx_models_to_ort ./ssd_mobilenet_v1.opset13.exported.onnx
-      ```
-  4. The model used is of uint8 data type, which is currently not supported. Changes to the TensorHelper.java file must be made to add support
-    - in your expo project, go to folder   ``` node_modules\onnxruntime-react-native\android\src\main\java\ai\onnxruntime\reactnative ```and file the file TensorHelper.java
-    
+  3. Install required libraries
+
+       i. There are two methods to install the required libraries. Run either of the following commands below in ```<SOURCE_ROOT>``` to install the modules and libraries specified in the package.json file.
+
+       - Using YARN:
+       ```
+       yarn
+       ```
+       - Using NPM:
+       ```
+       npm install
+       ```
+       **NOTE:** if you run into dependency issues and the installation fails, you can run this instead to install the modules.
+       ```
+       yarn --force
+       ```
+  4. Setup Android Projects:
+
+       i. In ```<SOURCE_ROOT>```, run the following command to generate project files.
+       ```
+       expo prebuild
+       ```
+       ii. Move the Move the ```BitmapModule.java``` file and the ```BitmapReactPackage.java``` file in ```<SOURCE_ROOT>``` to this directory: ```<SOURCE_ROOT>\android\app\src\main\java\com\dmvasquez\ExpoObjectDetection``` These files contain native module functions useful for the Android implementation. For more information on Native Modules, click this link: [Native Modules (React Native)](https://reactnative.dev/docs/next/native-modules-intro)
+
+       iii. In ```<SOURCE_ROOT>\android\app\src\main\java\com\dmvasquez\oMainApplication.java```, add the following lines of code to the ```getPackages``` function:
+       ```
+       @Override
+      protected List<ReactPackage> getPackages() {
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+       // packages.add(new MyReactNativePackage());
+      packages.add(new BitmapReactPackage());
+      return packages;
+      }
+       ```
+  5. Run the following command to launch project,
+  - In ```<SOURCE_ROOT>```, run the following to launch on Android
+  ```
+  expo run:android
+  ```
+
