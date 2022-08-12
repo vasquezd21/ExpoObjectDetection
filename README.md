@@ -65,7 +65,7 @@ Steps of building this project from scratch
        ```
   5. Run the following command to launch project,
   - In ```<SOURCE_ROOT>```, run the following to launch on Android
-  ```
-  expo run:android
-  ```
+    ```
+    expo run:android
+    ```
 
